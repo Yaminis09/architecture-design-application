@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Architectural Detail Search Engine</title>
+
+<style>
+
+body {
+    background-color: #f0f0f0;
+    font-family: Arial;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 500px;
+    margin-top: 80px;
+    text-align: center;
+}
+
+.form-section {
+    margin-top: 20px;
+}
+
+label {
+    display: inline-block;
+    width: 150px;
+    text-align: left;
+}
+
+input, select {
+    padding: 6px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 8px 18px;
+}
+
+#results {
+    margin-top: 30px;
+    text-align: left;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Architectural Detail Search</h2>
+
+<div class="form-section">
+
+
+<label>Query:</label>
+<!-- Input to search text -->
+<input type="text" id="query" placeholder="Enter search text">
+
+<br><br>
+<!-- Added Host Element with drop downs -->
+<label>Host Element:</label>
+<select id="host_element">
+<option value="">--Select--</option>
+<option>Window</option>
+<option>External Wall</option>
+<option>Internal Wall</option>
+</select>
+
+<br><br>
+
+<!-- Added Adjacent Element with drop downs -->
+<label>Adjacent Element:</label>
+<select id="adjacent_element">
+<option value="">--Select--</option>
+<option>Slab</option>
+<option>External Wall</option>
+<option>Floor</option>
+</select>
+
+<br><br>
+
+<!-- Added Exposure Element with drop downs -->
+<label>Exposure:</label>
+<select id="exposure">
+<option value="">--Select--</option>
+<option>External</option>
+<option>Internal</option>
+</select>
+
+<br><br>
+
+<button onclick="search()">Search</button>
+
+</div>
+
+<h2>Results</h2>
+
+<div id="results"></div>
+
+
+<script>
+async function search() {
+const query = document.getElementById("query").value;
+const host = document.getElementById("host_element").value;
+const adjacent = document.getElementById("adjacent_element").value;
+const exposure = document.getElementById("exposure").value;
+
+const requestData = {
+    query: query,
+    host_element: host,
+    adjacent_element: adjacent,
+    exposure: exposure
+};
+
+const response = await fetch("http://127.0.0.1:8000/search", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(requestData)
+});
+
+const data = await response.json();
+
+const resultsDiv = document.getElementById("results");
+
+resultsDiv.innerHTML = "";
+
+data.results.forEach(result => {
+
+    const item = document.createElement("div");
+
+    item.innerHTML =
+        "<h3>" + result.title + "</h3>" +
+        "<p>Score: " + result.score + "</p>" +
+        "<p>" + result.explanation + "</p>";
+
+    resultsDiv.appendChild(item);
+
+});
+
+}
+
+
+</script>
+
+</body>
+
