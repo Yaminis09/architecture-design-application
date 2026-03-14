@@ -107,13 +107,13 @@ system?
      
  4. If this API became a shared service used by multiple applications, what changes
 would you make to its architecture?
- -  add authentication and api key management to enhance security
- -   use docker or cloud services to deploy the application
- -   Look out for edge cases like application failure, one needs cloudwatch(logs) to understand the failure and api workload.
+   -  add authentication and api key management to enhance security
+   -   use docker or cloud services to deploy the application
+   -   Look out for edge cases like application failure, one needs cloudwatch(logs) to understand the failure and api workload.
 5. What would you change if this system needed to support AI-based
 recommendations in the future?
- - The best place of change will be in searching. instead of word to word search, the searches in AI based model are semantic based.
- - Vector based searches, this might also reduce our run time.
+   - The best place of change will be in searching. instead of word to word search, the searches in AI based model are semantic based.
+   - Vector based searches, this might also reduce our run time.
    
 
 
