@@ -90,23 +90,31 @@ If a field matches the stored rule, the relevance score increases.
 
 # Questions:
 1. If this system needed to support 100,000+ details, what changes would you make?
-   a. Instead of in script memory, I will use large scale database, preferbly postgreSQL
-   b. complete sentence query search
+   -  Instead of in script memory, I will use large scale database, preferbly postgreSQL
+   -  Use of better search algo preferbly hashing or indexing.
+   -  
 2. What improvements would you make to the search or ranking logic in a production
 system?
- a. Making logic of searches little detailed, like including fuzzy searches
- b. One probaky can make use of NLP to make searches better
- c. Can add synomyic understanding in the seaches. for example window sill means window edge.
+   -  Better search logic like fuzzy search, typo considering. so that misspelled words can also give us expected results.
+   -  Better ranking rules to improve ranking logic. rightnow the rules are simple, adding score if certain words matches. we can include, bonus score if all words match or adding weights if a certain words matches with the dataset more than once.
+   - One probaky can make use of NLP to make searches better
+
 3. What additional data or signals could help improve recommendation quality?
-   a. one can add more metadata to make reccomenation better
-   b. historical frequent selected detailing can be added to make recc quality better.
-   c. When used metadata, signals, we can run ML models to make better predictions and reccomendation
-4. If this API became a shared service used by multiple applications, what changes
+   -  one can add more metadata to make reccomenation better
+   -  We can add functionality to make recc better by user behaviour, or project they are working on.
+   -  We can use ML based recc if we make a space for each user. Lets say they are working on bedroom, there project is bedroom, their parameter is ancient rome like structure, then using the ML model we can reccommend structural designs can can go well with bedroom and acient rome.
+   -  historical frequent selected detailing can be added to make recc quality better.
+     
+ 4. If this API became a shared service used by multiple applications, what changes
 would you make to its architecture?
- a. add authentication and api key management to enhance security
- b. use docker or cloud services to deploy the application
+ -  add authentication and api key management to enhance security
+ -   use docker or cloud services to deploy the application
+ -   Look out for edge cases like application failure, one needs cloudwatch(logs) to understand the failure and api workload.
 5. What would you change if this system needed to support AI-based
 recommendations in the future?
+ - The best place of change will be in searching. instead of word to word search, the searches in AI based model are semantic based.
+ - Vector based searches, this might also reduce our run time.
+   
 
 
 
